@@ -330,7 +330,7 @@ def fetch_for_vod(id):
     timestamp = linkTimeCheck(url)
     if timestamp == None:
         print('timestamp is None')
-        return
+        return None, None
     url = playlist = None
     for domain in domains:
         if find1c == 0:
