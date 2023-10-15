@@ -327,7 +327,7 @@ def find(timestamp, domain, get_url = 0):
 
 def fetch_for_vod(id):
     url = f"https://twitchtracker.com/akaonikou1207/streams/{id}"
-    timestamp = linkTimeCheck(link)
+    timestamp = linkTimeCheck(url)
     if timestamp == None:
         print('timestamp is None')
         return
