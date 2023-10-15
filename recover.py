@@ -289,11 +289,16 @@ def find(timestamp, domain, get_url = 0):
 
             url = f"{domain}/{finalformattedstring}/chunked/index-dvr.m3u8"
             if get_url:
-                raw_playlist = requests.get(url).text
+                res = requests.get(url)
+                if res.status_code != 200:
+                    print(res.status_code)
+                    continue
+                raw_playlist = res.text
                 if raw_playlist is None:
-                    return M3U8(None)
+                    return url, M3U8(None)
                 return url, m3u8.loads(raw_playlist)
-            threads.append(Thread(target=check, args=(url,)))
+            else:
+                threads.append(Thread(target=check, args=(url,)))
 
         for i in threads:
             i.start()
@@ -314,16 +319,22 @@ def find(timestamp, domain, get_url = 0):
 
         url = f"{domain}/{finalformattedstring}/chunked/index-dvr.m3u8"
         if get_url:
-            raw_playlist = requests.get(url).text
+            res = requests.get(url)
+            if res.status_code != 200:
+                print(res.status_code)
+                return url, M3U8(None)
+            raw_playlist = res.text
             if raw_playlist is None:
-                return M3U8(None)
+                return url, M3U8(None)
             return url, m3u8.loads(raw_playlist)
-        threads.append(Thread(target=check, args=(url,)))
+        else:
+            threads.append(Thread(target=check, args=(url,)))
 
         for i in threads:
             i.start()
         for i in threads:
             i.join()
+    return None, M3U8(None)
 
 def fetch_for_vod(id):
     url = f"https://twitchtracker.com/akaonikou1207/streams/{id}"
