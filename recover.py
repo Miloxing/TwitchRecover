@@ -8,6 +8,8 @@ import requests
 import webbrowser
 import random
 import sys
+import m3u8
+from m3u8 import M3U8
 
 
 
@@ -42,6 +44,7 @@ domains = [
 'https://d2xmjdvx03ij56.cloudfront.net']
 
 find1c = 0
+get_url = 1
 
 
 
@@ -246,7 +249,7 @@ def totimestamp(dt, epoch=datetime.datetime(1970, 1, 1)):
     return (td.microseconds + (td.seconds + td.days * 86400) * 10 ** 6) / 10 ** 6
 
 
-def find(timestamp, domain):
+def find(timestamp, domain, get_url = 0):
     timestamp = timestamp.split('-')
     year = int(timestamp[0])
     month = int(timestamp[1])
@@ -285,7 +288,11 @@ def find(timestamp, domain):
             finalformattedstring = requiredhash + '_' + formattedstring
 
             url = f"{domain}/{finalformattedstring}/chunked/index-dvr.m3u8"
-
+            if get_url:
+                raw_playlist = requests.get(url).text
+                if raw_playlist is None:
+                    return M3U8(None)
+                return url, m3u8.loads(raw_playlist)
             threads.append(Thread(target=check, args=(url,)))
 
         for i in threads:
@@ -306,7 +313,11 @@ def find(timestamp, domain):
         finalformattedstring = requiredhash + '_' + formattedstring
 
         url = f"{domain}/{finalformattedstring}/chunked/index-dvr.m3u8"
-
+        if get_url:
+            raw_playlist = requests.get(url).text
+            if raw_playlist is None:
+                return M3U8(None)
+            return url, m3u8.loads(raw_playlist)
         threads.append(Thread(target=check, args=(url,)))
 
         for i in threads:
@@ -314,29 +325,41 @@ def find(timestamp, domain):
         for i in threads:
             i.join()
 
+def fetch_for_vod(id):
+    url = f"https://twitchtracker.com/akaonikou1207/streams/{id}"
+    timestamp = linkTimeCheck(link)
+    if timestamp == None:
+        print('timestamp is None')
+        return
+    url = playlist = None
+    for domain in domains:
+        if find1c == 0:
+            url, playlist = find(timestamp, domain,get_url)
+    return url, playlist
 
-if len(sys.argv) < 2:
-    # just python and recover.py as 1st argument
-    print('Find the broadcast link you want from Twitchtracker or Streamscharts site.')
-    link = str(input('Enter the link:'))
-else:
-    link = sys.argv[1]
-
-timestamp = linkTimeCheck(link)
-
-if timestamp == None:
-    quit()
-
-for domain in domains:
-    if find1c == 0:
-        find(timestamp, domain)
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        # just python and recover.py as 1st argument
+        print('Find the broadcast link you want from Twitchtracker or Streamscharts site.')
+        link = str(input('Enter the link:'))
     else:
-        pass
+        link = sys.argv[1]
 
-if find1c == 0:
-    print('No File Found on Twitch Servers.')
+    timestamp = linkTimeCheck(link)
 
-if find1c == 1:
-    time.sleep(10)
+    if timestamp == None:
+        quit()
+
+    for domain in domains:
+        if find1c == 0:
+            find(timestamp, domain)
+        else:
+            pass
+
+    if find1c == 0:
+        print('No File Found on Twitch Servers.')
+
+    if find1c == 1:
+        time.sleep(10)
 
 
