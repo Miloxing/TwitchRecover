@@ -289,13 +289,15 @@ def find(timestamp, domain, get_url = 0):
 
             url = f"{domain}/{finalformattedstring}/chunked/index-dvr.m3u8"
             if get_url:
-                res = requests.get(url)
+                res = requests.head(url)
                 if res.status_code != 200:
                     print(res.status_code)
                     continue
                 raw_playlist = res.text
                 if raw_playlist is None:
                     return url, M3U8(None)
+                print(url)
+                find1c = 1
                 return url, m3u8.loads(raw_playlist)
             else:
                 threads.append(Thread(target=check, args=(url,)))
@@ -319,13 +321,15 @@ def find(timestamp, domain, get_url = 0):
 
         url = f"{domain}/{finalformattedstring}/chunked/index-dvr.m3u8"
         if get_url:
-            res = requests.get(url)
+            res = requests.head(url)
             if res.status_code != 200:
                 print(res.status_code)
                 return url, M3U8(None)
             raw_playlist = res.text
             if raw_playlist is None:
                 return url, M3U8(None)
+            print(url)
+            find1c = 1
             return url, m3u8.loads(raw_playlist)
         else:
             threads.append(Thread(target=check, args=(url,)))
