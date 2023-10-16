@@ -342,6 +342,7 @@ def find(timestamp, domain, get_url = 0):
     return None, M3U8(None)
 
 def fetch_for_vod(id):
+    global find1c
     url = f"https://twitchtracker.com/akaonikou1207/streams/{id}"
     timestamp = linkTimeCheck(url)
     if timestamp == None:
@@ -352,6 +353,7 @@ def fetch_for_vod(id):
     for domain in domains:
         if find1c == 0:
             url, playlist = find(timestamp, domain,get_url)
+    find1c = 0
     return url, playlist
 
 if __name__ == '__main__':
