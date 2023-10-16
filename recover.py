@@ -347,7 +347,8 @@ def fetch_for_vod(id):
     if timestamp == None:
         print('timestamp is None')
         return None, None
-    url = playlist = None
+    url = None
+    playlist = M3U8(None)
     for domain in domains:
         if find1c == 0:
             url, playlist = find(timestamp, domain,get_url)
