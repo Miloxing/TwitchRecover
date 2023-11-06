@@ -11,41 +11,38 @@ import sys
 import m3u8
 from m3u8 import M3U8
 
-
-
 domains = [
-"https://vod-secure.twitch.tv",
-"https://vod-metro.twitch.tv",
-"https://vod-pop-secure.twitch.tv",
-"https://d2e2de1etea730.cloudfront.net",
-"https://dqrpb9wgowsf5.cloudfront.net",
-"https://ds0h3roq6wcgc.cloudfront.net",
-"https://d2nvs31859zcd8.cloudfront.net",
-"https://d2aba1wr3818hz.cloudfront.net",
-"https://d3c27h4odz752x.cloudfront.net",
-"https://dgeft87wbj63p.cloudfront.net",
-"https://d1m7jfoe9zdc1j.cloudfront.net",
-"https://d3vd9lfkzbru3h.cloudfront.net",
-"https://d2vjef5jvl6bfs.cloudfront.net",
-"https://d1ymi26ma8va5x.cloudfront.net",
-"https://d1mhjrowxxagfy.cloudfront.net",
-"https://ddacn6pr5v0tl.cloudfront.net",
-"https://d3aqoihi2n8ty8.cloudfront.net",
-"https://d1xhnb4ptk05mw.cloudfront.net",
-"https://d6tizftlrpuof.cloudfront.net",
-"https://d36nr0u3xmc4mm.cloudfront.net",
-"https://d1oca24q5dwo6d.cloudfront.net",
-"https://d2um2qdswy1tb0.cloudfront.net",
-'https://d1w2poirtb3as9.cloudfront.net',
-'https://d6d4ismr40iw.cloudfront.net',
-'https://d1g1f25tn8m2e6.cloudfront.net',
-'https://dykkng5hnh52u.cloudfront.net',
-'https://d2dylwb3shzel1.cloudfront.net',
-'https://d2xmjdvx03ij56.cloudfront.net']
+    "https://vod-secure.twitch.tv",
+    "https://vod-metro.twitch.tv",
+    "https://vod-pop-secure.twitch.tv",
+    "https://d2e2de1etea730.cloudfront.net",
+    "https://dqrpb9wgowsf5.cloudfront.net",
+    "https://ds0h3roq6wcgc.cloudfront.net",
+    "https://d2nvs31859zcd8.cloudfront.net",
+    "https://d2aba1wr3818hz.cloudfront.net",
+    "https://d3c27h4odz752x.cloudfront.net",
+    "https://dgeft87wbj63p.cloudfront.net",
+    "https://d1m7jfoe9zdc1j.cloudfront.net",
+    "https://d3vd9lfkzbru3h.cloudfront.net",
+    "https://d2vjef5jvl6bfs.cloudfront.net",
+    "https://d1ymi26ma8va5x.cloudfront.net",
+    "https://d1mhjrowxxagfy.cloudfront.net",
+    "https://ddacn6pr5v0tl.cloudfront.net",
+    "https://d3aqoihi2n8ty8.cloudfront.net",
+    "https://d1xhnb4ptk05mw.cloudfront.net",
+    "https://d6tizftlrpuof.cloudfront.net",
+    "https://d36nr0u3xmc4mm.cloudfront.net",
+    "https://d1oca24q5dwo6d.cloudfront.net",
+    "https://d2um2qdswy1tb0.cloudfront.net",
+    'https://d1w2poirtb3as9.cloudfront.net',
+    'https://d6d4ismr40iw.cloudfront.net',
+    'https://d1g1f25tn8m2e6.cloudfront.net',
+    'https://dykkng5hnh52u.cloudfront.net',
+    'https://d2dylwb3shzel1.cloudfront.net',
+    'https://d2xmjdvx03ij56.cloudfront.net']
 
 find1c = 0
 get_url = 1
-
 
 
 def linkChecker(link):  # twitchtracker ve streamscharts destekli
@@ -83,18 +80,17 @@ def linkTimeCheck(link):
 
         gelenveri = soup.find_all('time', 'ml-2 font-bold')
 
-
         try:
             time = gelenveri[0].text
 
         except:
-            print('You probably got into cloudflare for bots.(could not find time data) There is nothing I can do for this error for now. \n'
-                  'Please fork if you can bypass this cloudflare. \n'
-                  'You will not get an error when you try again after a while. \n'
-                  'So try again after a while. ')
+            print(
+                'You probably got into cloudflare for bots.(could not find time data) There is nothing I can do for this error for now. \n'
+                'Please fork if you can bypass this cloudflare. \n'
+                'You will not get an error when you try again after a while. \n'
+                'So try again after a while. ')
 
             return
-
 
         if '\n' in time:
             time = time.replace('\n', '')
@@ -159,38 +155,37 @@ def linkTimeCheck(link):
         print(f'timestamp', timestamp)
         return timestamp
 
-    elif linkChecker(link) == 1 or linkChecker(link) == 3: #twitchtracker
+    elif linkChecker(link) == 1 or linkChecker(link) == 3:  # twitchtracker
         print('Date and Time are checking...')
-        
-        useragent = ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.5; rv:103.0) Gecko/20100101 Firefox/103.0",
-        "Mozilla/5.0 (X11; Linux i686; rv:103.0) Gecko/20100101 Firefox/103.0",
-        "Mozilla/5.0 (Linux x86_64; rv:103.0) Gecko/20100101 Firefox/103.0",
-        "Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:103.0) Gecko/20100101 Firefox/103.0",
-        "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:103.0) Gecko/20100101 Firefox/103.0",
-        "Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:103.0) Gecko/20100101 Firefox/103.0",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.5; rv:102.0) Gecko/20100101 Firefox/102.0",
-        "Mozilla/5.0 (X11; Linux i686; rv:102.0) Gecko/20100101 Firefox/102.0",
-        "Mozilla/5.0 (Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0",
-        "Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:102.0) Gecko/20100101 Firefox/102.0",
-        "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0",
-        "Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 12_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6 Safari/605.1.15",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36 Edg/103.0.1264.77",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36 Edg/103.0.1264.77",
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36']
-        
-        
+
+        useragent = [
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.5; rv:103.0) Gecko/20100101 Firefox/103.0",
+            "Mozilla/5.0 (X11; Linux i686; rv:103.0) Gecko/20100101 Firefox/103.0",
+            "Mozilla/5.0 (Linux x86_64; rv:103.0) Gecko/20100101 Firefox/103.0",
+            "Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:103.0) Gecko/20100101 Firefox/103.0",
+            "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:103.0) Gecko/20100101 Firefox/103.0",
+            "Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:103.0) Gecko/20100101 Firefox/103.0",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 12.5; rv:102.0) Gecko/20100101 Firefox/102.0",
+            "Mozilla/5.0 (X11; Linux i686; rv:102.0) Gecko/20100101 Firefox/102.0",
+            "Mozilla/5.0 (Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0",
+            "Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:102.0) Gecko/20100101 Firefox/102.0",
+            "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0",
+            "Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 12_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6 Safari/605.1.15",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36 Edg/103.0.1264.77",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36 Edg/103.0.1264.77",
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36']
+
         header = {
             'user-agent': f'{random.choice(useragent)}'
         }
-
 
         r = requests.get(link, headers=header)
 
@@ -198,16 +193,15 @@ def linkTimeCheck(link):
 
         gelenveri = soup.find_all('div', 'stream-timestamp-dt')
 
-
         try:
             time = gelenveri[0].text
         except:
-            print('You probably got into cloudflare for bots.(could not find time data) There is nothing I can do for this error for now. \n'
-                  'Please fork if you can bypass this cloudflare. \n'
-                  'You will not get an error when you try again after a while. \n'
-                  'So try again after a while. ')
+            print(
+                'You probably got into cloudflare for bots.(could not find time data) There is nothing I can do for this error for now. \n'
+                'Please fork if you can bypass this cloudflare. \n'
+                'You will not get an error when you try again after a while. \n'
+                'So try again after a while. ')
             return
-
 
         print(f'Clock data:  {gelenveri[0].text}')
         print(f'Streamer name: {streamername} \nvodID: {vodID}')
@@ -249,8 +243,7 @@ def totimestamp(dt, epoch=datetime.datetime(1970, 1, 1)):
     return (td.microseconds + (td.seconds + td.days * 86400) * 10 ** 6) / 10 ** 6
 
 
-def find(timestamp, domain, get_url = 0):
-    global find1c
+def find(timestamp, domain, get_url=0):
     timestamp = timestamp.split('-')
     year = int(timestamp[0])
     month = int(timestamp[1])
@@ -267,7 +260,7 @@ def find(timestamp, domain, get_url = 0):
             pass
         else:
             print(url)
-            #webbrowser.open(url)
+            # webbrowser.open(url)
             find1c = 1
 
     threads = []
@@ -290,18 +283,12 @@ def find(timestamp, domain, get_url = 0):
 
             url = f"{domain}/{finalformattedstring}/chunked/index-dvr.m3u8"
             if get_url:
-                res = requests.head(url)
-                if res.status_code != 200:
-                    print(res.status_code)
-                    continue
-                raw_playlist = res.text
+                raw_playlist = requests.get(url).text
                 if raw_playlist is None:
-                    return url, M3U8(None)
-                print(url)
-                find1c = 1
+                    return M3U8(None)
+                print(raw_playlist)
                 return url, m3u8.loads(raw_playlist)
-            else:
-                threads.append(Thread(target=check, args=(url,)))
+            threads.append(Thread(target=check, args=(url,)))
 
         for i in threads:
             i.start()
@@ -322,39 +309,30 @@ def find(timestamp, domain, get_url = 0):
 
         url = f"{domain}/{finalformattedstring}/chunked/index-dvr.m3u8"
         if get_url:
-            res = requests.head(url)
-            if res.status_code != 200:
-                print(res.status_code)
-                return url, M3U8(None)
-            raw_playlist = res.text
+            raw_playlist = requests.get(url).text
             if raw_playlist is None:
-                return url, M3U8(None)
-            print(url)
-            find1c = 1
+                return M3U8(None)
             return url, m3u8.loads(raw_playlist)
-        else:
-            threads.append(Thread(target=check, args=(url,)))
+        threads.append(Thread(target=check, args=(url,)))
 
         for i in threads:
             i.start()
         for i in threads:
             i.join()
-    return None, M3U8(None)
+
 
 def fetch_for_vod(id):
-    global find1c
     url = f"https://twitchtracker.com/akaonikou1207/streams/{id}"
     timestamp = linkTimeCheck(url)
     if timestamp == None:
         print('timestamp is None')
-        return None, None
-    url = None
-    playlist = M3U8(None)
+        return
+    url = playlist = None
     for domain in domains:
         if find1c == 0:
-            url, playlist = find(timestamp, domain,get_url)
-    find1c = 0
+            url, playlist = find(timestamp, domain, get_url)
     return url, playlist
+
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
