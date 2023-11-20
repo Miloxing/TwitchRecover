@@ -284,7 +284,7 @@ def find(timestamp, domain, get_url=0):
 
             url = f"{domain}/{finalformattedstring}/chunked/index-dvr.m3u8"
             if get_url:
-                res = requests.head(url, proxies=proxies)
+                res = requests.get(url, proxies=proxies)
                 status_code = res.status_code
                 if status_code != 200:
                     print(url, status_code)
@@ -320,7 +320,7 @@ def find(timestamp, domain, get_url=0):
 
         url = f"{domain}/{finalformattedstring}/chunked/index-dvr.m3u8"
         if get_url:
-            res = requests.head(url, proxies=proxies)
+            res = requests.get(url, proxies=proxies)
             if res.status_code != 200:
                 print(domain, res.status_code)
                 return url, M3U8(None)
