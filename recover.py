@@ -244,6 +244,7 @@ def totimestamp(dt, epoch=datetime.datetime(1970, 1, 1)):
 
 
 def find(timestamp, domain, get_url=0):
+    global find1c
     timestamp = timestamp.split('-')
     year = int(timestamp[0])
     month = int(timestamp[1])
@@ -286,12 +287,14 @@ def find(timestamp, domain, get_url=0):
                 res = requests.head(url)
                 status_code = res.status_code
                 if status_code != 200:
-                    print(status_code)
+                    print(url, status_code)
                     continue
                 raw_playlist = res.text
                 if raw_playlist is None:
-                    return M3U8(None)
-                print(raw_playlist)
+                    print(domain, 'playlist none')
+                    return url, M3U8(None)
+                print(url)
+                find1c = 1
                 return url, m3u8.loads(raw_playlist)
             else:
                 threads.append(Thread(target=check, args=(url,)))
