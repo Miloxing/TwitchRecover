@@ -12,6 +12,7 @@ import m3u8
 from m3u8 import M3U8
 
 domains = [
+    "https://d3vd9lfkzbru3h.cloudfront.net",
     "https://vod-secure.twitch.tv",
     "https://vod-metro.twitch.tv",
     "https://vod-pop-secure.twitch.tv",
@@ -23,7 +24,6 @@ domains = [
     "https://d3c27h4odz752x.cloudfront.net",
     "https://dgeft87wbj63p.cloudfront.net",
     "https://d1m7jfoe9zdc1j.cloudfront.net",
-    "https://d3vd9lfkzbru3h.cloudfront.net",
     "https://d2vjef5jvl6bfs.cloudfront.net",
     "https://d1ymi26ma8va5x.cloudfront.net",
     "https://d1mhjrowxxagfy.cloudfront.net",
@@ -43,7 +43,7 @@ domains = [
 
 find1c = 0
 get_url = 1
-
+proxies = {'https': 'http://158.178.230.57:3247'}
 
 def linkChecker(link):  # twitchtracker ve streamscharts destekli
     global streamername
@@ -284,7 +284,7 @@ def find(timestamp, domain, get_url=0):
 
             url = f"{domain}/{finalformattedstring}/chunked/index-dvr.m3u8"
             if get_url:
-                res = requests.head(url)
+                res = requests.head(url, proxies=proxies)
                 status_code = res.status_code
                 if status_code != 200:
                     print(url, status_code)
@@ -320,7 +320,7 @@ def find(timestamp, domain, get_url=0):
 
         url = f"{domain}/{finalformattedstring}/chunked/index-dvr.m3u8"
         if get_url:
-            res = requests.head(url)
+            res = requests.head(url, proxies=proxies)
             if res.status_code != 200:
                 print(domain, res.status_code)
                 return url, M3U8(None)
