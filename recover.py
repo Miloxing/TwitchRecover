@@ -245,7 +245,6 @@ def totimestamp(dt, epoch=datetime.datetime(1970, 1, 1)):
 
 def find(timestamp, domain, get_url=0):
     global find1c
-    find1c = 0
     timestamp = timestamp.split('-')
     year = int(timestamp[0])
     month = int(timestamp[1])
@@ -341,12 +340,14 @@ def find(timestamp, domain, get_url=0):
 
 
 def fetch_for_vod(id):
+    global find1c
     url = f"https://twitchtracker.com/akaonikou1207/streams/{id}"
     timestamp = linkTimeCheck(url)
     if timestamp == None:
         print('timestamp is None')
         return
     url = playlist = None
+    find1c = 0
     for domain in domains:
         if find1c == 0:
             url, playlist = find(timestamp, domain, get_url)
