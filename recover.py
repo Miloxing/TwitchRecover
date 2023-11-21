@@ -245,6 +245,7 @@ def totimestamp(dt, epoch=datetime.datetime(1970, 1, 1)):
 
 def find(timestamp, domain, get_url=0):
     global find1c
+    find1c = 0
     timestamp = timestamp.split('-')
     year = int(timestamp[0])
     month = int(timestamp[1])
